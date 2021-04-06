@@ -3,7 +3,7 @@ const {Sequelize, Model, DataTypes} = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
 class User extends Model {}
-let model = User.init({
+ User.init({
     username: DataTypes.STRING,
     password: DataTypes.STRING
 },{sequelize,modalName:'user'});
@@ -14,8 +14,10 @@ let model = User.init({
 
     //console.log(jane.toJSON());
 })();
+let models = {
+    User:User
+}
 
-
-module.exports = model
+module.exports = models
 
 

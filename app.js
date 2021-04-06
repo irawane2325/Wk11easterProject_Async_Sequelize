@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const matchCredentials = require('./utils.js')
 
 //importing user Model from DB
-const  User  = require('./model.js')
+const  { User }  = require('./model.js')
 
 const app = express()
 app.set('view engine', 'ejs')
@@ -20,19 +20,20 @@ res.render('pages/home')
 // create a user account
 app.post('/create', async function(req, res){
     let body = req.body
-    const user = await User.create({
+    let users = await User.create({
         username: body.username,
         password: body.password  
-    }) 
-    await user.save();
+    })
+   
+     users.save()
+     res.redirect('/')
+     console.log(users.toJSON())
  
-    res.send('User Created')
-    console.log( user.toJSON() )
+   
 })
-
        
             // login
-            app.post('/login', async function(req, res){
+            app.post('/login',function(req, res){
             if (matchCredentials(req.body)) {
                 let user = req.body.username
                   let sess = uuidv4()
@@ -55,7 +56,7 @@ app.post('/create', async function(req, res){
                   
                     res.render('pages/members')
                     } else {
-                    res.redirect('/error')
+                    res.redirect('/errors')
                     }
                 })
 
@@ -70,22 +71,22 @@ app.post('/create', async function(req, res){
 if (session) {
     res.render('pages/members')
     } else {
-    res.render('pages/error')
+    res.render('pages/errors')
     }
     })
 
     // if something went wrong, you get sent here
     app.get('/error', function(req, res){
-    res.render('pages/error')
+    res.render('pages/errors')
     })
     // 404 handling
     app.all('*', function(req, res){
-    res.render('pages/error')
+    res.render('pages/errors')
     })
 
 
 
 
-    app.listen(1612)
-    console.log('Server is running on 1612')
+    app.listen(1613)
+    console.log('Server is running on 1613')
 
