@@ -40,7 +40,7 @@ app.post('/create', async function(req, res){
                     user: user,
                     timeOfLogin: Date.now()
                   }
-            user.sessions = ids
+            User.sessions = ids
 
             console.log(user.toJSON())
         
