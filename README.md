@@ -1,0 +1,1 @@
+# Wk11easterProject_Async_Sequelize
