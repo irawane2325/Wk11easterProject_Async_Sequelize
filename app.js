@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const matchCredentials = require('./utils.js')
 
 //importing user Model from DB
-const { User } = require('./model.js')
+const  User  = require('./model.js')
 
 const app = express()
 app.set('view engine', 'ejs')
@@ -23,10 +23,11 @@ app.post('/create', async function(req, res){
     const user = await User.create({
         username: body.username,
         password: body.password  
-    });
-​
+    }) 
+    await user.save();
+ 
+    res.send('User Created')
     console.log( user.toJSON() )
-    res.redirect('/')
 })
 
        
