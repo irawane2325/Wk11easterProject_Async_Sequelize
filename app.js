@@ -6,6 +6,7 @@ const matchCredentials = require('./utils.js')
 
 //importing user Model from DB
 const  { User }  = require('./model.js')
+const { Session } = require('./model.js')
 
 const app = express()
 app.set('view engine', 'ejs')
@@ -28,27 +29,29 @@ app.post('/create', async function(req, res){
      users.save()
      res.redirect('/')
      console.log(users.toJSON())
+     
  
    
 })
        
             // login
-            app.post('/login',function(req, res){
+            app.post('/login', async function(req, res){
             if (matchCredentials(req.body)) {
                 let user = req.body.username
                   let sess = uuidv4()
-                  
-                  let ids = {
-                    id: sess,  
+
+                  let ses = await Session.create({
+                    sessionId:sess,
                     user: user,
                     timeOfLogin: Date.now()
-                  }
-            User.sessions = ids
+                  })
+                
+            //ses.Session = sessionId
 
-            console.log(user.toJSON())
+            console.log(ses.toJSON())
         
                 // create cookie that holds the UUID (the Session ID)
-              let x =   res.cookie('SID', ids.id, {
+              let x =   res.cookie('SID', ses.sessionId, {
                     expires: new Date(Date.now() + 900000),
                     httpOnly: false
                     })
@@ -56,7 +59,7 @@ app.post('/create', async function(req, res){
                   
                     res.render('pages/members')
                     } else {
-                    res.redirect('/errors')
+                    res.redirect('pages/errors')
                     }
                 })
 

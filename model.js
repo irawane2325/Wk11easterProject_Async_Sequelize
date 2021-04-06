@@ -5,8 +5,16 @@ const sequelize = new Sequelize('sqlite::memory:');
 class User extends Model {}
  User.init({
     username: DataTypes.STRING,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+   
 },{sequelize,modalName:'user'});
+
+class Session extends Model{}
+Session.init ({
+    sessionId: DataTypes.UUID,
+    user: DataTypes.STRING,
+    timeOfLogin: DataTypes.DATE
+}, {sequelize,modalName:'session'});
 
 (async () => {
     await sequelize.sync();
@@ -15,7 +23,8 @@ class User extends Model {}
     //console.log(jane.toJSON());
 })();
 let models = {
-    User:User
+    User:User,
+    Session:Session
 }
 
 module.exports = models
