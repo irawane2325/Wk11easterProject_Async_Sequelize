@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    
+    <title>Project Cookies</title>
+</head>
+
+
+<body>
+        <h1>Welcome</h1>
+
+        <h2> Oh shoot, look at this cool link</h2>
+
+        <a href="/supercoolmembersonlypage">don't you want to try it</a>
+        <div >
+                <h2>Create Account</h2>
+                <form action="/create" method="POST">
+                    <label>Name</label>
+                <input type="text" name="username"> <br>
+                <label>Password</label>
+                <input type="text" name="password"> <br>
+                <button type="submit">Submit</button>
+                </form>
+        </div>
+       
+        <div>
+                <h2>Login</h2>
+                <form action="/login" method="POST">
+                    <label>Name</label>
+                <input type="text" name="username"> <br>
+                <label>Password</label>
+                <input type="text" name="password"> <br>
+                <button type="submit" id="submit">submit</button>
+        
+                </form>
+        </div>
+        
+    
+</body>
+
+<style>
+    
+    div {
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.49);
+    height: 200px;
+    width:fit-content;
+    margin:2%;
+    padding:1%;
+}
+    input{
+       margin-top:1.5%;
+    }
+
+     #submit {
+        margin-left: 10%;
+    }
+</style>
+</html>
