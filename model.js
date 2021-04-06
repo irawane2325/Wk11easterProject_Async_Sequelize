@@ -5,17 +5,20 @@ const sequelize = new Sequelize('sqlite::memory:');
 class User extends Model {}
 User.init({
     username: DataTypes.STRING,
-    birthday: DataTypes.DATE
+    password: DataTypes.STRING
 },{sequelize,modalName:'user'});
 
- 
-
 (async () => {
-    await sequelize.sync()
-})()
-​
-let models = {
-    User: User
+    await sequelize.sync();
+   
+
+    //console.log(jane.toJSON());
+})();
+let model = {
+    username: {},
+    password:{}
 }
-​
-module.exports = models
+
+module.exports = model
+
+

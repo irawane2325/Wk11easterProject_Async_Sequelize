@@ -4,14 +4,12 @@ const { v4: uuidv4 } = require('uuid');
 const matchCredentials = require('./utils.js')
 
 //importing user Model from DB
-const {user} = require('./model.js')
+const { User } = require('./model.js')
 
 const app = express()
 app.set('view engine', 'ejs')
 app.use(cookieParser())
 app.use(express.urlencoded({extended: false}))
-
-  
 
 // show home with forms
 app.get('/', function(req, res){
@@ -19,22 +17,20 @@ res.render('pages/home')
 })
 
 // create a user account
-app.post('/create', function(req, res){
+app.post('/create', async function(req, res){
     let body = req.body
-    ​
-        const user = await User.create({
-            username: body.username,
-            password: body.password  
-        });
-    ​
-        console.log( user.toJSON() )
-        res.send('=)')
-   // res.redirect('/')
-    })
+    const user = await User.create({
+        username: body.username,
+        password: body.password  
+    });
+​
+    console.log( user.toJSON() )
+    res.redirect('/')
+})
 
        
             // login
-            app.post('/login', function(req, res){
+            app.post('/login', async function(req, res){
             if (matchCredentials(req.body)) {
                 let user = req.body.username
                   let sess = uuidv4()
@@ -44,9 +40,9 @@ app.post('/create', function(req, res){
                     user: user,
                     timeOfLogin: Date.now()
                   }
-            fake_db.sessions = ids
+            user.sessions = ids
 
-            console.log(fake_db)
+            console.log(user.toJSON())
         
                 // create cookie that holds the UUID (the Session ID)
               let x =   res.cookie('SID', ids.id, {
