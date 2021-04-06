@@ -1,1 +1,1 @@
-# Wk12easterProject_Async_Sequelize
+# Wk12easterProject_Sequelize
